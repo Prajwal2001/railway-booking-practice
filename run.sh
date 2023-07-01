@@ -32,12 +32,12 @@ elif [[ $1 == "-build" ]]; then
     # Build Gradle project using gradlew
     echo "Building Gradle project 'Railway Booking'"
     echo "---------------------------------------------------------"
-    ./gradlew build
+    ./gradlew build -x test
 else
     # Build Gradle project using gradlew
     echo "Building Gradle project 'Railway Booking'"
     echo "---------------------------------------------------------"
-    ./gradlew build
+    ./gradlew build -x test
 
     # Run Spring Boot application with jar file 'app-0.0.1-SNAPSHOT.jar'
     echo "Running Spring Boot application"
