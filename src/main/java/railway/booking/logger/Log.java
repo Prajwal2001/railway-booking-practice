@@ -6,6 +6,7 @@ import java.util.Date;
 import org.springframework.stereotype.Component;
 
 import railway.booking.enums.GeneralEnums;
+import railway.booking.enums.LogEnums;
 
 @Component
 public class Log {
@@ -19,19 +20,19 @@ public class Log {
     private StackTraceElement stackTraceElement;
 
     public void info(Object obj) {
-        print(GeneralEnums.INFO_LOG_FORMAT, obj);
+        print(LogEnums.INFO_LOG_FORMAT, obj);
     }
 
     public void error(Object obj) {
-        print(GeneralEnums.ERROR_LOG_FORMAT, obj);
+        print(LogEnums.ERROR_LOG_FORMAT, obj);
     }
 
-    public void print(GeneralEnums generalEnums, Object obj) {
+    public void print(LogEnums logEnums, Object obj) {
         fetchBasicData();
 
         System.out.println("");
         System.out.println(
-                String.format(generalEnums.getStringValue1(), formattedDate, className,
+                String.format(logEnums.getStringValue1(), formattedDate, className,
                         lineNumber, methodName, obj));
         System.out.println("");
 
