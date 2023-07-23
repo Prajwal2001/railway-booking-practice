@@ -1,7 +1,9 @@
-package railway.booking.entities;
+package railway.booking.app.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -24,8 +26,21 @@ import lombok.ToString;
 public class Coach {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "coach_id")
-    private int coachId;
+    private Long coachId;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "no_of_seats")
+    private Long noOfSeats;
+
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "cost")
+    private Float cost;
 
     @ManyToOne()
     @JoinColumn(name = "engine_id")

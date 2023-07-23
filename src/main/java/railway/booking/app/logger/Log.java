@@ -1,12 +1,12 @@
-package railway.booking.logger;
+package railway.booking.app.logger;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
-import railway.booking.enums.GeneralEnums;
-import railway.booking.enums.LogEnums;
+import railway.booking.app.enums.LogEnums;
+import railway.booking.app.enums.GeneralEnums;
 
 @Component
 public class Log {

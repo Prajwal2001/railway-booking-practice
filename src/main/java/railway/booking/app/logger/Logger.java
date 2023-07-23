@@ -1,4 +1,4 @@
-package railway.booking.logger;
+package railway.booking.app.logger;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

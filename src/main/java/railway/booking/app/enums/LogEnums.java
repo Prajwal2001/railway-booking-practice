@@ -1,4 +1,4 @@
-package railway.booking.enums;
+package railway.booking.app.enums;
 
 public enum LogEnums {
 
