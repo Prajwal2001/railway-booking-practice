@@ -1,0 +1,87 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Railway Booking System",
+        "description": "A simple railway booking app",
+        "license": {
+            "name": "railway.booking"
+        },
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/test": {
+            "get": {
+                "tags": [
+                    "main-controller"
+                ],
+                "operationId": "test",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Engine"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/test1": {
+            "get": {
+                "tags": [
+                    "main-controller"
+                ],
+                "operationId": "test1",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Engine"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Coach": {
+                "type": "object",
+                "properties": {
+                    "coachId": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "Engine": {
+                "type": "object",
+                "properties": {
+                    "coaches": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Coach"
+                        }
+                    },
+                    "engineId": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            }
+        }
+    }
+}
