@@ -1,6 +1,6 @@
 package railway.booking.app.entities;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,7 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,30 +26,32 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Coach {
+public class Route {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "coach_id")
-    private Long coachId;
+    @Column(name = "route_id")
+    private Long routeId;
 
-    @Column(name = "name")
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "station_id")
+    private Station station;
 
-    @Column(name = "no_of_seats")
-    private Long noOfSeats;
+    @Column(name = "arrival_time")
+    private LocalDateTime arrivalTime;
 
-    @Column(name = "type")
-    private String type;
+    @Column(name = "departure_time")
+    private LocalDateTime departureTime;
 
-    @Column(name = "cost")
-    private Float cost;
+    @Column(name = "day")
+    private Long day;
 
-    @ManyToOne()
-    @JoinColumn(name = "engine_id")
-    private Engine engine;
+    @Column(name = "dist_frm_prev_station")
+    private Float distanceFromPreviousStation;
 
-    @OneToMany(mappedBy = "coach")
-    private List<Seat> seats;
+    @Column(name = "sl_no")
+    private Long slNo;
 
+    @OneToOne(mappedBy = "route")
+    private Train train;
 }

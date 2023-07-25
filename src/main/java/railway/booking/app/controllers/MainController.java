@@ -1,6 +1,5 @@
 package railway.booking.app.controllers;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,7 +51,7 @@ public class MainController {
     public ResponseEntity<EngineReponse> test1() {
         ResponseEntity<EngineReponse> response;
 
-        Engine engine = engineRepository.findById(2).orElse(null);
+        Engine engine = engineRepository.findById(2L).orElse(null);
         if (engine != null) {
             try {
                 response = new ResponseEntity<>(new EngineReponse(engine, engine.getCoaches()), HttpStatus.OK);

@@ -1,15 +1,12 @@
 package railway.booking.app.entities;
 
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,30 +23,21 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Coach {
+public class Train {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "coach_id")
-    private Long coachId;
+    @Column(name = "train_no")
+    private Long trainNo;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "train_name")
+    private String trainName;
 
-    @Column(name = "no_of_seats")
-    private Long noOfSeats;
+    @OneToOne
+    @JoinColumn(name = "route_id")
+    private Route route;
 
-    @Column(name = "type")
-    private String type;
-
-    @Column(name = "cost")
-    private Float cost;
-
-    @ManyToOne()
+    @OneToOne
     @JoinColumn(name = "engine_id")
     private Engine engine;
-
-    @OneToMany(mappedBy = "coach")
-    private List<Seat> seats;
-
 }

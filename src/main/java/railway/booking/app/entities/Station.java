@@ -7,8 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,30 +24,19 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Coach {
+public class Station {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "coach_id")
-    private Long coachId;
+    @Column(name = "station_id")
+    private Long stationId;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "station_name")
+    private String stationName;
 
-    @Column(name = "no_of_seats")
-    private Long noOfSeats;
+    @Column(name = "place")
+    private String place;
 
-    @Column(name = "type")
-    private String type;
-
-    @Column(name = "cost")
-    private Float cost;
-
-    @ManyToOne()
-    @JoinColumn(name = "engine_id")
-    private Engine engine;
-
-    @OneToMany(mappedBy = "coach")
-    private List<Seat> seats;
-
+    @OneToMany(mappedBy = "station")
+    private List<Route> routes;
 }

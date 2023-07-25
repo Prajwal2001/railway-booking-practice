@@ -3,14 +3,13 @@ package railway.booking.app.entities;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -47,6 +46,8 @@ public class Engine {
     private LocalDateTime manufactureYear;
 
     @OneToMany(mappedBy = "engine")
-    @JsonIgnore
     private List<Coach> coaches;
+
+    @OneToOne(mappedBy = "engine")
+    private Train train;
 }
