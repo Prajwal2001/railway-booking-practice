@@ -21,12 +21,12 @@ import lombok.ToString;
 @ToString
 @Data
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Coach {
+public class Coach extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +45,7 @@ public class Coach {
     @Column(name = "cost")
     private Float cost;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "engine_id")
     private Engine engine;
 

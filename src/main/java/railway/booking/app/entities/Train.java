@@ -18,12 +18,12 @@ import lombok.ToString;
 @ToString
 @Data
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Train {
+public class Train extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
