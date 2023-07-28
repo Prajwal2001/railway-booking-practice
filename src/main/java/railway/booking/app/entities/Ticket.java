@@ -9,8 +9,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,28 +28,34 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Engine extends BaseEntity {
+public class Ticket extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "engine_id")
-    private Long EngineId;
+    @Column(name = "ticket_id")
+    private Long ticketId;
 
-    @Column(name = "max_speed")
-    private Long maxSpeed;
-
-    @Column(name = "fuel_type")
-    private String fuelType;
-
-    @Column(name = "tot_dist_traveled")
-    private Long totalDistanceTraveled;
-
-    @Column(name = "manf_year")
-    private LocalDateTime manufactureYear;
-
-    @OneToMany(mappedBy = "leadEngine", cascade = CascadeType.ALL)
-    private List<Coach> coaches;
-
-    @OneToOne(mappedBy = "trainEngine", cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "train_id")
     private Train train;
+
+    @Column(name = "travel_date")
+    private LocalDateTime travelDate;
+
+    @Column(name = "booking date")
+    private LocalDateTime bookingDate;
+
+    @ManyToOne
+    @JoinColumn(name = "from_station_id")
+    private Station fromStation;
+
+    @ManyToOne
+    @JoinColumn(name = "to_station_id")
+    private Station toStation;
+
+    @Column(name = "price")
+    private Float price;
+
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
+    private List<Passenger> passengers;
 }

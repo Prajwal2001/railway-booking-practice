@@ -2,6 +2,7 @@ package railway.booking.app.entities;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,9 +48,9 @@ public class Coach extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "engine_id")
-    private Engine engine;
+    private Engine leadEngine;
 
-    @OneToMany(mappedBy = "coach")
+    @OneToMany(mappedBy = "coach", cascade = CascadeType.ALL)
     private List<Seat> seats;
 
 }

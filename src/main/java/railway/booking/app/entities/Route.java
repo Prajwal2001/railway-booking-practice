@@ -2,6 +2,7 @@ package railway.booking.app.entities;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -52,6 +53,6 @@ public class Route extends BaseEntity {
     @Column(name = "sl_no")
     private Long slNo;
 
-    @OneToOne(mappedBy = "route")
+    @OneToOne(mappedBy = "route", cascade = CascadeType.ALL)
     private Train train;
 }

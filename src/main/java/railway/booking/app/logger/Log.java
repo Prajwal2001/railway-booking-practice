@@ -11,7 +11,7 @@ import railway.booking.app.enums.GeneralEnums;
 @Component
 public class Log {
 
-    Date curDate;
+    private Date curDate;
     private String className;
     private String methodName;
     private int lineNumber;

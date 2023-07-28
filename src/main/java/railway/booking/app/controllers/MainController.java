@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import railway.booking.app.entities.AppUser;
 import railway.booking.app.entities.Coach;
 import railway.booking.app.entities.Engine;
+import railway.booking.app.entities.Passenger;
+import railway.booking.app.entities.Seat;
 import railway.booking.app.logger.Log;
 import railway.booking.app.repository.CoachRepository;
 import railway.booking.app.repository.EngineRepository;
@@ -34,18 +36,8 @@ public class MainController {
         ResponseEntity<Engine> response;
 
         Engine engine = new Engine();
-        AppUser user = new AppUser();
-
-        Coach coach = new Coach();
-        coach.setEngine(engine);
-        coach.setCreatedUser(user);
-
-        Coach coach1 = new Coach();
-        coach1.setEngine(engine);
-        coach1.setDeleteFl(false);
 
         engineRepository.saveAndFlush(engine);
-        coachRepository.saveAllAndFlush(Arrays.asList(coach, coach1));
 
         response = new ResponseEntity<>(engine, HttpStatus.OK);
         return response;

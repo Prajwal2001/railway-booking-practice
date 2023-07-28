@@ -1,6 +1,5 @@
 package railway.booking.app.entities;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,20 +24,24 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Seat extends BaseEntity {
+public class Passenger extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "seat_id")
-    private Long seatId;
-
-    @Column(name = "seat_no")
-    private Long seatNo;
+    @Column(name = "passenger_id")
+    private Long passengerId;
 
     @ManyToOne
-    @JoinColumn(name = "coach_id")
-    private Coach coach;
+    @JoinColumn(name = "ticket_id")
+    private Ticket ticket;
 
-    @OneToOne(mappedBy = "seat", cascade = CascadeType.ALL)
-    private Passenger passenger;
+    @Column(name = "passenger_name")
+    private String passengerName;
+
+    @Column(name = "passenger_age")
+    private Long passengerAge;
+
+    @OneToOne
+    @JoinColumn(name = "seat_id")
+    private Seat seat;
 }
