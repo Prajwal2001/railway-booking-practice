@@ -1,11 +1,7 @@
-FROM gradle:jdk17-alpine
+FROM openjdk:17-alpine
 
 WORKDIR /app
 
-COPY . .
+COPY ./build .
 
-RUN addgroup --system myappgroup && adduser --system myappuser -G myappgroup
-
-RUN chown -R myappuser:myappgroup /app
-
-USER myappuser
+EXPOSE 8000

@@ -29,9 +29,10 @@ public class MainController {
 
         Engine engine = new Engine();
 
-        engineRepository.saveAndFlush(engine);
+        engine = engineRepository.saveAndFlush(engine);
 
         response = new ResponseEntity<>(engine, HttpStatus.OK);
+        log.info(engine);
         return response;
     }
 

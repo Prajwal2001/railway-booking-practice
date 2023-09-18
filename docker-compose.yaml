@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  mygradle:
+    build: ./backend/gradle_docker/
+    volumes:
+      - './backend/:/app/'
+    entrypoint: gradle clean build -x test
+    profiles:
+      - all
+      - gradle
+  
+  database:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Database
+      POSTGRES_DB: railwaybooking
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    profiles:
+      - all
+      - db
+      - backend
+
+  app:
+    build: ./backend/
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/build:/app/
+    entrypoint: java -jar ./libs/app-0.0.1-SNAPSHOT.jar
+    profiles:
+      - all
+      - run
+      - backend
+    depends_on:
+      - database
+
+volumes:
+  pgdata:
