@@ -19,21 +19,21 @@ public class Log {
     private String formattedDate;
     private StackTraceElement stackTraceElement;
 
-    public void info(Object obj) {
-        print(LogEnums.INFO_LOG_FORMAT, obj);
+    public void info(Object message) {
+        print(LogEnums.INFO_LOG_FORMAT, message);
     }
 
-    public void error(Object obj) {
-        print(LogEnums.ERROR_LOG_FORMAT, obj);
+    public void error(Object message) {
+        print(LogEnums.ERROR_LOG_FORMAT, message);
     }
 
-    public void print(LogEnums logEnums, Object obj) {
+    public void print(LogEnums logEnums, Object message) {
         fetchBasicData();
 
         System.out.println("");
         System.out.println(
                 String.format(logEnums.getStringValue1(), formattedDate, className,
-                        lineNumber, methodName, obj));
+                        lineNumber, methodName, message));
         System.out.println("");
 
     }

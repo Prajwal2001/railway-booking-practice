@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  mygradle:
+    build: ./
+    volumes:
+      - './:/app/'
+    entrypoint: gradle clean build -x test
+    profiles:
+      - build
+  
+  database:
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

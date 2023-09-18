@@ -1,6 +1,5 @@
 package railway.booking.app.controllers;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import railway.booking.app.entities.AppUser;
 import railway.booking.app.entities.Coach;
 import railway.booking.app.entities.Engine;
-import railway.booking.app.entities.Passenger;
-import railway.booking.app.entities.Seat;
 import railway.booking.app.logger.Log;
-import railway.booking.app.repository.CoachRepository;
 import railway.booking.app.repository.EngineRepository;
 
 @RestController
@@ -26,9 +21,6 @@ public class MainController {
 
     @Autowired
     private EngineRepository engineRepository;
-
-    @Autowired
-    private CoachRepository coachRepository;
 
     @GetMapping(path = "/test")
     public ResponseEntity<Engine> test() {
