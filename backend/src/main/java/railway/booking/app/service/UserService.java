@@ -1,4 +1,4 @@
-package railway.booking.app.config;
+package railway.booking.app.service;
 
 import java.util.HashSet;
 import java.util.Set;

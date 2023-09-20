@@ -33,7 +33,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity
 @Table(name = "app_user")
-public class AppUser implements UserDetails{
+public class AppUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
