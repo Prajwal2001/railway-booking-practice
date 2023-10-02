@@ -31,10 +31,10 @@ public class Role extends BaseEntity implements GrantedAuthority {
     private Long roleId;
 
     @Column(name = "level")
-    private String level;
+    private String authority;
 
     @Override
     public String getAuthority() {
-        return level;
+        return authority;
     }
 }

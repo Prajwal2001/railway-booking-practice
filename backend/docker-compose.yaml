@@ -4,7 +4,7 @@ services:
     build: ./gradle_docker/
     volumes:
       - './:/app/'
-    entrypoint: gradle clean build -x test
+    entrypoint: gradle build -x test
     profiles:
       - all
       - gradle

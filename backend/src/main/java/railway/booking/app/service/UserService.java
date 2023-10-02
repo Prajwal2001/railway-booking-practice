@@ -1,28 +1,27 @@
 package railway.booking.app.service;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import railway.booking.app.entities.AppUser;
-import railway.booking.app.entities.Role;
+import railway.booking.app.repository.AppUserRepository;
 
 @Service
 public class UserService implements UserDetailsService {
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private AppUserRepository appUserRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Set<Role> roles = new HashSet<>();
-        return new AppUser(1L, "username", email, "1122334455", passwordEncoder.encode("test"), roles);
+        AppUser user = null;
+        if (appUserRepository.findByEmailId(email).isPresent())
+            user = appUserRepository.findByEmailId(email).get();
+        else 
+            throw new UsernameNotFoundException("User with Email-ID: " + email + ", not found");
+        return new AppUser( user.getUserId(), user.getName(), user.getEmailId(), user.getPhNo(), user.getPassword(), user.getRoles() );
     }
-    
 }
