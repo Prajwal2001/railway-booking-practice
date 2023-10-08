@@ -18,20 +18,23 @@ import lombok.ToString;
 @ToString
 @Data
 @Setter
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Role extends BaseEntity implements GrantedAuthority {
+public class Role implements GrantedAuthority {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
     private Long roleId;
 
-    @Column(name = "level")
+    @Column(name = "authority")
     private String authority;
+
+    @Column(name = "delete_fl")
+    private Boolean deleteFl;
 
     @Override
     public String getAuthority() {

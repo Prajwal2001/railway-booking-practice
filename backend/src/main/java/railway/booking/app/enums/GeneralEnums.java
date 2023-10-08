@@ -2,7 +2,11 @@ package railway.booking.app.enums;
 
 public enum GeneralEnums {
 
-    DATE_FORMAT("dd-MM-yyyy HH:mm:ss");
+    DATE_FORMAT("dd-MM-yyyy HH:mm:ss"),
+
+    // User Types
+    ADMIN("ADMIN"),
+    USER("USER");
 
     private String stringValue1, stringValue2;
 

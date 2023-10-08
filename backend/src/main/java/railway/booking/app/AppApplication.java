@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
 import railway.booking.app.entities.AppUser;
 import railway.booking.app.entities.Role;
+import railway.booking.app.enums.GeneralEnums;
 import railway.booking.app.repository.AppUserRepository;
 import railway.booking.app.repository.RoleRepository;
 
@@ -28,15 +29,15 @@ public class AppApplication {
 	@Bean
 	CommandLineRunner run( RoleRepository roleRepository, AppUserRepository appUserRepository, PasswordEncoder passwordEncoder ) {
 		return args -> {
-			if (roleRepository.findByAuthority("ADMIN").isPresent()) return;
+			if (roleRepository.findByAuthority(GeneralEnums.ADMIN.getStringValue1()).isPresent()) return;
 
-			Role adminRole = roleRepository.save(new Role(1L, "ADMIN"));
-			roleRepository.save(new Role(2L, "USER"));
+			Role adminRole = roleRepository.save(new Role(1L, GeneralEnums.ADMIN.getStringValue1(), Boolean.FALSE));
+			roleRepository.save(new Role(2L, GeneralEnums.USER.getStringValue1(), Boolean.FALSE));
 
-			Set<Role> set = new HashSet<>();
-			set.add(adminRole);
+			Set<Role> rolesSet = new HashSet<>();
+			rolesSet.add(adminRole);
 
-			AppUser admin = new AppUser(1L, "admin", "admin@admin.com", "1234567890", passwordEncoder.encode("password"), set);
+			AppUser admin = new AppUser(1L, "admin", "admin@admin.com", "1234567890", passwordEncoder.encode("password"), rolesSet);
 			appUserRepository.save(admin);
 		};
 	}

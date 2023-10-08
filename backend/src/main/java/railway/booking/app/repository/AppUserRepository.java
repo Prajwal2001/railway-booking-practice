@@ -8,4 +8,5 @@ import railway.booking.app.entities.AppUser;
 
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     Optional<AppUser> findByEmailId(String emailId);
+    Optional<AppUser> findByPhNo(String phNo);
 }
