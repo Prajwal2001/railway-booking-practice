@@ -1,5 +1,6 @@
 package railway.booking.app.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
@@ -26,6 +28,7 @@ import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 
+import railway.booking.app.logger.Log;
 import railway.booking.app.utils.RSAKeyProperties;
 
 @Configuration
@@ -33,6 +36,9 @@ import railway.booking.app.utils.RSAKeyProperties;
 public class SecurityConfig {
 
     private final RSAKeyProperties keys;
+
+    @Autowired
+    private Log log;
 
     public SecurityConfig(RSAKeyProperties keys) {
         this.keys = keys;
@@ -52,14 +58,16 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(
                         auth -> {
-                            auth.requestMatchers("/auth/**", "/swagger-ui/**",  "/v3/api-docs/**").permitAll();
+                            auth.requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll();
                             auth.requestMatchers("/admin/**").hasRole("ADMIN");
                             auth.requestMatchers("/user/**").hasAnyRole("ADMIN", "USER");
                             auth.anyRequest().authenticated();
                         });
         httpSecurity.oauth2ResourceServer(server -> server
-                .jwt()
-                .jwtAuthenticationConverter(jwtAuthenticationConverter()));
+                .jwt(token -> {
+                    token.jwtAuthenticationConverter(jwtAuthenticationConverter());
+                }));
+
         httpSecurity.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return httpSecurity.build();
     }

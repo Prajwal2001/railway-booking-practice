@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.info.License;
 import railway.booking.app.entities.AppUser;
 import railway.booking.app.entities.Role;
 import railway.booking.app.enums.GeneralEnums;
+import railway.booking.app.enums.UserEnums;
 import railway.booking.app.repository.AppUserRepository;
 import railway.booking.app.repository.RoleRepository;
 
@@ -29,10 +30,10 @@ public class AppApplication {
 	@Bean
 	CommandLineRunner run( RoleRepository roleRepository, AppUserRepository appUserRepository, PasswordEncoder passwordEncoder ) {
 		return args -> {
-			if (roleRepository.findByAuthority(GeneralEnums.ADMIN.getStringValue1()).isPresent()) return;
+			if (roleRepository.findByAuthority(UserEnums.ADMIN_ROLE.getValue()).isPresent()) return;
 
-			Role adminRole = roleRepository.save(new Role(1L, GeneralEnums.ADMIN.getStringValue1(), Boolean.FALSE));
-			roleRepository.save(new Role(2L, GeneralEnums.USER.getStringValue1(), Boolean.FALSE));
+			Role adminRole = roleRepository.save(new Role(1L, UserEnums.ADMIN_ROLE.getValue(), Boolean.FALSE));
+			roleRepository.save(new Role(2L, UserEnums.USER_ROLE.getValue(), Boolean.FALSE));
 
 			Set<Role> rolesSet = new HashSet<>();
 			rolesSet.add(adminRole);

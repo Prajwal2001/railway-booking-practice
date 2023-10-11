@@ -1,7 +1,5 @@
 package railway.booking.app.controllers;
 
-import java.sql.SQLException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,25 +27,29 @@ public class AuthController {
     private Log log;
 
     @PostMapping("/register")
-    public ResponseEntity<AppUser> registerUser( @RequestBody RegistrationModel body ) {
-        ResponseEntity<AppUser> responseEntity;
-        
+    public ResponseEntity<AppUser> registerUser(@RequestBody RegistrationModel body) {
+        ResponseEntity<AppUser> responseEntity = null;
+
         AppUser user = null;
         try {
-            user = authService.registerUser(body.getEmail(), body.getUserName(), body.getPassword(), body.getPhNo() );
+            user = authService.registerUser(body.email(), body.userName(), body.password(), body.phNo());
             responseEntity = new ResponseEntity<>(user, HttpStatus.OK);
         } catch (CustomException e) {
-            log.error(e.getMessage());
             responseEntity = new ResponseEntity(e.getMessage(), HttpStatus.FORBIDDEN);
         }
-        
-        
         return responseEntity;
     }
 
-
     @PostMapping("/login")
-    public LoginResponseModel loginUser(@RequestBody LoginModel loginModel) {
-        return authService.loginUser(loginModel.getEmail(), loginModel.getPassword());
+    public ResponseEntity<LoginResponseModel> loginUser(@RequestBody LoginModel body) {
+        ResponseEntity<LoginResponseModel> responseEntity = null;
+        LoginResponseModel responseModel = null;
+        try {
+            responseModel = authService.loginUser(body.email(), body.password());
+            responseEntity = new ResponseEntity<>(responseModel, HttpStatus.OK);
+        } catch (CustomException e) {
+            responseEntity = new ResponseEntity(e.getMessage(), HttpStatus.FORBIDDEN);
+        }
+        return responseEntity;
     }
 }
