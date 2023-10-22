@@ -3,7 +3,8 @@ package railway.booking.app.enums;
 public enum GeneralEnums {
 
     DATE_FORMAT("dd-MM-yyyy HH:mm:ss"),
-    BLANK("");
+    BLANK(""),
+    WHITE_SPACE(" ");
 
     private String stringValue1, stringValue2;
 

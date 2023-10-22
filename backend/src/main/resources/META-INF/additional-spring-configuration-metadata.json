@@ -1,5 +1,5 @@
 {"properties": [{
-  "name": "jwt.expirty.seconds",
+  "name": "jwt.expiry.seconds",
   "type": "java.lang.Long",
-  "description": "A description for 'jwt.expirty.seconds'"
+  "description": "A description for 'jwt.expiry.seconds'"
 }]}

@@ -4,7 +4,6 @@ services:
     build: ./gradle_docker/
     volumes:
       - './:/app/'
-    entrypoint: gradle build -x test
     profiles:
       - all
       - gradle
@@ -28,9 +27,9 @@ services:
     build: ./
     ports:
       - "8000:8000"
+      - "5005:5005"
     volumes:
       - ./build:/app/
-    entrypoint: java -jar ./libs/app-0.0.1-SNAPSHOT.jar
     profiles:
       - all
       - backend

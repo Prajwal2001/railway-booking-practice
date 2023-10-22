@@ -28,6 +28,9 @@ import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 
+import railway.booking.app.enums.ConfigEnums;
+import railway.booking.app.enums.JWTEnums;
+import railway.booking.app.enums.UserEnums;
 import railway.booking.app.logger.Log;
 import railway.booking.app.utils.RSAKeyProperties;
 
@@ -58,9 +61,9 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(
                         auth -> {
-                            auth.requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll();
-                            auth.requestMatchers("/admin/**").hasRole("ADMIN");
-                            auth.requestMatchers("/user/**").hasAnyRole("ADMIN", "USER");
+                            auth.requestMatchers(ConfigEnums.AUTH_ROUTES.getValue(), ConfigEnums.SWAGGER_UI_ROUTES.getValue(), ConfigEnums.API_DOCS_ROUTES.getValue()).permitAll();
+                            auth.requestMatchers(ConfigEnums.ADMIN_ROUTES.getValue()).hasRole(UserEnums.ADMIN_ROLE.getValue());
+                            auth.requestMatchers(ConfigEnums.USER_ROUTES.getValue()).hasAnyRole(UserEnums.ADMIN_ROLE.getValue(), UserEnums.USER_ROLE.getValue());
                             auth.anyRequest().authenticated();
                         });
         httpSecurity.oauth2ResourceServer(server -> server
@@ -92,8 +95,8 @@ public class SecurityConfig {
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
-        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
+        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName(JWTEnums.ROLES_CLAIM.getValue());
+        jwtGrantedAuthoritiesConverter.setAuthorityPrefix(JWTEnums.ROLE_PREFIX.getValue());
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
         return jwtAuthenticationConverter;
